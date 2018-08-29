@@ -188,6 +188,7 @@ class ThreadController extends BaseController
         $this->validate($request, ['category_id' => ['required']]);
 
         $thread = $this->model()->find($id);
+        $thread->timestamps = false;
 
         $category = Category::find($request->input('category_id'));
 
@@ -208,6 +209,7 @@ class ThreadController extends BaseController
     public function lock($id, Request $request)
     {
         $thread = $this->model()->where('locked', 0)->find($id);
+        $thread->timestamps = false;
 
         $category = !is_null($thread) ? $thread->category : [];
 
@@ -224,6 +226,7 @@ class ThreadController extends BaseController
     public function unlock($id, Request $request)
     {
         $thread = $this->model()->where('locked', 1)->find($id);
+        $thread->timestamps = false;
 
         $category = !is_null($thread) ? $thread->category : [];
 
@@ -240,6 +243,7 @@ class ThreadController extends BaseController
     public function pin($id, Request $request)
     {
         $thread = $this->model()->where('pinned', 0)->find($id);
+        $thread->timestamps = false;
 
         $category = !is_null($thread) ? $thread->category : [];
 
@@ -256,6 +260,7 @@ class ThreadController extends BaseController
     public function unpin($id, Request $request)
     {
         $thread = $this->model()->where('pinned', 1)->find($id);
+        $thread->timestamps = false;
 
         $category = ($thread) ? $thread->category : [];
 
@@ -274,6 +279,7 @@ class ThreadController extends BaseController
         $this->validate($request, ['title' => ['required']]);
 
         $thread = $this->model()->find($id);
+        $thread->timestamps = false;
 
         return $this->updateModel($thread, ['title' => $request->input('title')], 'rename');
     }
